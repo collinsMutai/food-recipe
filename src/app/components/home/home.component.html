@@ -1,0 +1,110 @@
+<div class="container">
+  <div class="form">
+    <form action="" #form="ngForm" (ngSubmit)="onSubmit(form)">
+      <mat-form-field>
+        <input
+          matInput
+          name="search"
+          ngModel
+          placeholder="Search food recipes"
+        />
+      </mat-form-field>
+      <button mat-raised-button color="primary">Search</button>
+    </form>
+  </div>
+  <!-- recipe information -->
+  <h2>Recipe information</h2>
+  <div class="recipeInfo" *ngFor="let recipe of recipeInfo">
+    <div class="left">
+      <h3>{{ recipe['title'] }}</h3>
+      <img src="{{ recipe['image'] }}" alt="" />
+    </div>
+    <div class="right">
+      <div class="timer">
+        <p *ngIf="recipe['readyInMinutes']">
+          Ready in: {{ recipe['readyInMinutes']}}
+        </p>
+        <mat-icon>timer</mat-icon>
+      </div>
+      <h3 *ngIf="recipe['summary']">Summary</h3>
+      <p [innerHTML]="recipe['summary']"></p>
+      <h3 *ngIf="recipe['extendedIngredients']">Ingredients</h3>
+      <mat-list class="list-items">
+        <mat-list-item
+          *ngFor="let ingredient of recipe['extendedIngredients']"
+        >
+          {{ ingredient["name"] }}
+        </mat-list-item>
+      </mat-list>
+      <h3 *ngIf="recipe['instructions']">Cooking Instructions</h3>
+      <p [innerHTML]="recipe['instructions']"></p>
+    </div>
+  </div>
+  <!-- featured -->
+  <div class="featured" *ngIf="featuredRecipe?.length">
+    <h2>Featured recipe</h2>
+    <div class="recipes" *ngFor="let recipe of featuredRecipe">
+      <div class="left">
+        <div class="timer">
+          <p *ngIf="recipe['readyInMinutes']">
+            Ready in: {{ recipe["readyInMinutes"] }}
+          </p>
+          <mat-icon>timer</mat-icon>
+        </div>
+        <h3 *ngIf="recipe['summary']">Summary</h3>
+        <p [innerHTML]="recipe['summary']"></p>
+        <h3 *ngIf="recipe['instructions']">Cooking Instructions</h3>
+        <p [innerHTML]="recipe['instructions']"></p>
+        <h3 *ngIf="recipe['extendedIngredients']">Ingredients</h3>
+        <mat-list class="list-items">
+          <mat-list-item
+            *ngFor="let ingredient of recipe['extendedIngredients']"
+          >
+            {{ ingredient["name"] }}
+          </mat-list-item>
+        </mat-list>
+      </div>
+      <div class="right">
+        <h3 [innerHTML]="recipe['title']"></h3>
+        <img src="{{ recipe['image'] }}" alt="" />
+      </div>
+    </div>
+  </div>
+  <!-- select cuisines -->
+  <h2>Select Cuisines</h2>
+  <div class="select-btns">
+    <button
+      mat-raised-button
+      color="accent"
+      type="submit"
+      id="italian"
+      (click)="selectCuisine($event)"
+    >
+      Italian
+    </button>
+    <button
+      mat-raised-button
+      color="accent"
+      type="submit"
+      id="chinese"
+      (click)="selectCuisine($event)"
+    >
+      Chinese
+    </button>
+    <button
+      mat-raised-button
+      color="accent"
+      type="submit"
+      id="mexican"
+      (click)="selectCuisine($event)"
+    >
+      Mexican
+    </button>
+  </div>
+  <div class="cuisines">
+    <mat-card *ngFor="let cuisine of cuisines" class="cuisine-info">
+      <img src="{{ cuisine['image'] }}" alt="" />
+      <h3>{{ cuisine["title"] }}</h3>
+    </mat-card>
+  </div>
+</div>
