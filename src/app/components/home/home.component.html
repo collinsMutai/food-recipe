@@ -12,8 +12,8 @@
       <button mat-raised-button color="primary">Search</button>
     </form>
   </div>
+  <h2 *ngIf="recipeInfo" >Recipe information</h2>
   <!-- recipe information -->
-  <h2>Recipe information</h2>
   <div class="recipeInfo" *ngFor="let recipe of recipeInfo">
     <div class="left">
       <h3>{{ recipe['title'] }}</h3>

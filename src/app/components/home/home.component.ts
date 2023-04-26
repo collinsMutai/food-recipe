@@ -26,7 +26,10 @@ export class HomeComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     // init recipe info
     let search: string = 'lemon chicken';
-    this.searchByName(search);
+    this.foodRecipeService.getFoodRecipes(search).subscribe((results) => {
+      console.log(results.recipes);
+      this.recipeInfo = results.recipes;
+    });
 
     // init featured recipe
     this.featuredSub = this.foodRecipeService
@@ -52,6 +55,8 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.recipeSub = this.foodRecipeService
       .getFoodRecipes(name)
       .subscribe((results) => {
+  
+        this.recipeInfo = results.recipes
         this.id = results.recipes[0]['id'];
         this.fetchById(this.id);
       });
